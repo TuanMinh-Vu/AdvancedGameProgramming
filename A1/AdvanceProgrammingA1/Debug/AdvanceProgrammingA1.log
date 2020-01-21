@@ -1,0 +1,5 @@
+﻿  Game.cpp
+C:\Users\Tuan Minh Vu\Desktop\AdvanceProgrammingA1\AdvanceProgrammingA1\Game.cpp(8,94): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\Tuan Minh Vu\Desktop\AdvanceProgrammingA1\AdvanceProgrammingA1\Game.cpp(8,87): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\Tuan Minh Vu\Desktop\AdvanceProgrammingA1\AdvanceProgrammingA1\Game.cpp(65,20): warning C4018: '<': signed/unsigned mismatch
+  AdvanceProgrammingA1.vcxproj -> C:\Users\Tuan Minh Vu\Desktop\AdvanceProgrammingA1\Debug\AdvanceProgrammingA1.exe
