@@ -2,7 +2,6 @@
 #include "SFML/Graphics.hpp"
 #include "Map.h"
 #include "Button.h"
-#include <iostream>
 
 class Game
 {
@@ -19,17 +18,24 @@ private:
 	void Render();
 	void KeyboardInput(sf::Keyboard::Key keyCode, bool isPressed);
 	sf::RenderWindow mWindow;
-	Map* map;
 	const sf::Time FPS = sf::seconds(1.0f / 60.0f);
+	sf::Font font;
+
+	bool gameOver = false;
+
+#pragma region InGame Varables
+	Map* map;
 	int numOfScan = 6;
 	int numOfExtract = 3;
 	unsigned int resources = 0;
 	bool isScanning = true;
-	bool gameOver = false;
 	std::string mode;
-	sf::Font font;
 	Button switchingBtn;
 	sf::Text message;
+
+	std::vector<sf::RectangleShape> tileSamples;
+	std::vector<sf::Text> explanationTexts;
+#pragma endregion
 
 #pragma region Game Over Panel;
 	Button restartBtn;
