@@ -157,9 +157,9 @@ void Tile::AddAdjacentTiles(Tile* t)
 	adjacentTiles.push_back(t);
 }
 
-void Tile::OnMouseClicked(sf::RenderWindow& window)
+bool Tile::OnMouseClicked(sf::RenderWindow& window)
 {
-	if (IsMouseOver(window))
+	if (IsMouseHover(window))
 	{
 		isFacingUp = true;
 
@@ -167,10 +167,14 @@ void Tile::OnMouseClicked(sf::RenderWindow& window)
 		{
 			tile->isFacingUp = true;
 		}
+		
+		return true;
 	}
+
+	return false;
 }
 
-bool Tile::IsMouseOver(sf::RenderWindow& window)
+bool Tile::IsMouseHover(sf::RenderWindow& window)
 {
 	int mouseX = sf::Mouse::getPosition(window).x;
 	int mouseY = sf::Mouse::getPosition(window).y;

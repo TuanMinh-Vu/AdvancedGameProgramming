@@ -27,8 +27,8 @@ public:
 	void Update();
 	int GetResourceAtState(States s) const;
 	void AddAdjacentTiles(Tile* t);
-	void OnMouseClicked(sf::RenderWindow& window);
-	bool IsMouseOver(sf::RenderWindow& window);
+	bool OnMouseClicked(sf::RenderWindow& window);
+	bool IsMouseHover(sf::RenderWindow& window);
 #pragma endregion
 
 	

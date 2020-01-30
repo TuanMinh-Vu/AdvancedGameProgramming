@@ -6,25 +6,34 @@
 class Button 
 {
 public:
-	Button(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color textColor);
+	Button();
+	Button(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color hoverColor, sf::Color textColor);
 
-	//void setFont(sf::Font& fonts);
+	void SetText(std::string text);
 
-	void setBackColor(sf::Color color);
+	void SetFont(sf::Font& fonts);
 
-	void setTextColor(sf::Color color);
+	void SetBackgroudColor(sf::Color color);
 
-	void setPosition(sf::Vector2f point);
+	void SetTextColor(sf::Color color);
 
-	void drawTo(sf::RenderWindow& window);
+	void SetPosition(sf::Vector2f point);
 
-	bool isMouseOver(sf::RenderWindow& window);
+	sf::Color GetBackgroundColor() const;
+
+	void DrawTo(sf::RenderWindow& window);
+
+	bool IsMouseHover(sf::RenderWindow& window);
 
 private:
 
 	sf::RectangleShape button;
-	//sf::Text text;
-
+	sf::Text text;
+	sf::Vector2f size;
+	int fontSize;
+	sf::Color normalColor;
+	sf::Color hoverColor;
+	sf::Color textColor;
 	int btnWidth;
 	int btnHeight;
 };

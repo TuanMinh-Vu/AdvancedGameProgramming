@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Map.h"
+#include "Button.h"
 #include <iostream>
 
 class Game
@@ -19,6 +20,11 @@ private:
 	sf::RenderWindow mWindow;
 	Map* map;
 	const sf::Time FPS = sf::seconds(1.0f / 60.0f);
-
+	int numOfScan = 6;
+	int numOfExtract = 3;
+	bool isScanning = true;
+	sf::Font font;
+	Button switchingBtn;
+	sf::Text message;
 };
 
