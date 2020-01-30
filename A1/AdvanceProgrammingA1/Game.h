@@ -22,7 +22,9 @@ private:
 	const sf::Time FPS = sf::seconds(1.0f / 60.0f);
 	int numOfScan = 6;
 	int numOfExtract = 3;
+	unsigned int resources = 0;
 	bool isScanning = true;
+	std::string mode;
 	sf::Font font;
 	Button switchingBtn;
 	sf::Text message;

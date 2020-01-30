@@ -8,19 +8,21 @@ Game::Game() : mWindow(sf::VideoMode(640, 480), "GAME3011_A1")
 Game::Game(float width, float height, const std::string& tile): mWindow(sf::VideoMode(width, height), tile)
 {
 	map = new Map(16, 16, 6, 3);
+	mode = "SCAN";
 
 	if (!font.loadFromFile("../Font/LemonMilk.otf"))
 		std::runtime_error("Font not found");
 
 	switchingBtn = Button("Switch Mode", sf::Vector2f(200.0f, 100.0f), 20, sf::Color::Green, sf::Color::Blue, sf::Color::Black);
 	switchingBtn.SetFont(font);
-	switchingBtn.SetPosition(sf::Vector2f(1000, 1000));
+	switchingBtn.SetPosition(sf::Vector2f(1000, 700));
 
 	message.setFont(font);
 	message.setFillColor(sf::Color::Red);
 	message.setCharacterSize(20);
 	message.setPosition(sf::Vector2f(1000, 500));
-	message.setString("Number Of Scan: " + std::to_string(numOfScan));
+	message.setString(mode + " MODE\n\n" + "Number Of Scan: " + std::to_string(numOfScan) + "\n" + "Number Of Extract: " + std::to_string(numOfExtract) + "\n" + "Resources: " + std::to_string(resources));
+
 }
 
 Game::~Game()
@@ -69,23 +71,44 @@ void Game::ProcessEvent()
 
 		case sf::Event::MouseButtonPressed:
 			
+#pragma region Extract Mode
 			if (!isScanning && numOfExtract > 0)
 			{
-				numOfExtract--;
-			}
-			
-			if (isScanning && numOfScan > 0)
-			{
-				
 				for (int i = 0; i < map->GetTiles().size(); i++)
 				{
-					if(map->GetTiles()[i]->OnMouseClicked(mWindow)) numOfScan--;
+					if (map->GetTiles()[i]->OnMouseClicked(mWindow))
+					{
+						numOfExtract--;
+						resources += map->GetTiles()[i]->GetCurrentResource();
+						map->GetTiles()[i]->SetState(Tile::States::Minimum);
+						/*for (Tile* t : map->GetTiles()[i]->GetAdjacentTiles())
+						{
+							if(t->GetState() == Tile::States::Minimum) 
+							t->SetState(static_cast<Tile::States>(t->GetState() + 1));
+						}*/
+					}
 				}
 			}
+#pragma endregion
+
 			
+#pragma region Scan Mode
+			if (isScanning && numOfScan > 0)
+			{
+
+				for (int i = 0; i < map->GetTiles().size(); i++)
+				{
+					if (map->GetTiles()[i]->OnMouseClicked(mWindow)) numOfScan--;
+				}
+			}
+#pragma endregion
+
+			
+#pragma region Switching Button
 			if (switchingBtn.IsMouseHover(mWindow))
 			{
 				isScanning = !isScanning;
+				mode = isScanning ? "SCAN" : "EXTRACT";
 
 				if (switchingBtn.GetBackgroundColor() == sf::Color::Green)
 				{
@@ -96,8 +119,8 @@ void Game::ProcessEvent()
 					switchingBtn.SetBackgroudColor(sf::Color::Green);
 				}
 			}
-			
-			
+#pragma endregion
+
 			break;
 
 		default:
@@ -113,7 +136,8 @@ void Game::Update(sf::Time deltaTime)
 	{
 		map->GetTiles()[i]->Update();
 	}
-	message.setString("Number Of Scan: " + std::to_string(numOfScan));
+	
+	message.setString(mode + " MODE\n\n" + "Number Of Scan: " + std::to_string(numOfScan) + "\n" + "Number Of Extract: " + std::to_string(numOfExtract) + "\n" + "Resources: " + std::to_string(resources));
 }
 
 void Game::Render()
@@ -135,7 +159,11 @@ void Game::KeyboardInput(sf::Keyboard::Key keyCode, bool isPressed)
 	switch (keyCode)
 	{
 	case sf::Keyboard::Space:
-		if (isPressed) isScanning = !isScanning;
+		if (isPressed)
+		{
+			mode = isScanning ? "SCAN" : "EXTRACT";
+			isScanning = !isScanning;
+		}
 		
 		break;
 

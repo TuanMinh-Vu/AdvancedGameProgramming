@@ -30,6 +30,7 @@ private:
 	void MakeResourceTiles();
 	void MakeTilesRings(Tile* centerTile, sf::Vector2i center);
 	void FindAdjecentTiles();
+	void RemoveOverlapTiles();
 #pragma endregion
 
 };

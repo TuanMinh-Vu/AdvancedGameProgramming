@@ -22,6 +22,8 @@ public:
 
 #pragma region Public Methods
 	int GetCurrentResource() const;
+	void SetState(States s);
+	States GetState() const;
 	void SetPosition(sf::Vector2f p);
 	sf::Vector2f GetPosition() const;
 	void Update();
@@ -29,6 +31,7 @@ public:
 	void AddAdjacentTiles(Tile* t);
 	bool OnMouseClicked(sf::RenderWindow& window);
 	bool IsMouseHover(sf::RenderWindow& window);
+	//std::vector<Tile*> GetAdjacentTiles() const;
 #pragma endregion
 
 	

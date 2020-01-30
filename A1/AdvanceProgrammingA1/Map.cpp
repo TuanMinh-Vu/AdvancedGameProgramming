@@ -10,7 +10,9 @@ Map::Map()
 	Initialize();
 	MakeFullMap();
 	MakeResourceTiles();
+	RemoveOverlapTiles();
 	FindAdjecentTiles();
+	
 }
 
 Map::Map(int row, int column, int resources, int ring) : row(row), column(column), numOfResourceTiles(resources), numOfRingPerResouceTiles(ring)
@@ -18,7 +20,9 @@ Map::Map(int row, int column, int resources, int ring) : row(row), column(column
 	Initialize();
 	MakeFullMap();
 	MakeResourceTiles();
+	RemoveOverlapTiles();
 	FindAdjecentTiles();
+	
 }
 
 Map::~Map()
@@ -98,7 +102,6 @@ void Map::MakeTilesRings(Tile* centerTile, sf::Vector2i center)
 					// is the current tile empty or has the resource than the new one?
 					if (amountResourceGrid[nextRow][nextColumn] == NULL || amountResourceGrid[nextRow][nextColumn] < maximumResourcesPerTile / (2 * i))
 					{
-						// optimize this later
 						Tile* tile = new Tile(static_cast<Tile::States>(Tile::States::Maximum + i), maximumResourcesPerTile, sf::Vector2f(50.0f, 50.0f), 2.0f);
 						tile->SetPosition(sf::Vector2f(tile->GetSize().x * nextRow, tile->GetSize().y * nextColumn));
 						amountResourceGrid[nextRow][nextColumn] = tile->GetCurrentResource();
@@ -130,9 +133,30 @@ void Map::FindAdjecentTiles()
 			{
 				tiles[i]->AddAdjacentTiles(tiles[j]);
 			}
+
 		}
 	}
 
+}
+
+void Map::RemoveOverlapTiles()
+{
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		for (int j = 0; j < tiles.size(); j++)
+		{
+			if (tiles[i]->GetPosition() == tiles[j]->GetPosition() && i != j)
+			{
+				if (tiles[i]->GetCurrentResource() > tiles[j]->GetCurrentResource()) tiles.erase(tiles.begin() + j);
+				else
+				{
+					tiles.erase(tiles.begin() + i);
+					//break;
+				};
+			}
+
+		}
+	}
 }
 
 std::vector<Tile*> Map::GetTiles()

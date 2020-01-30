@@ -21,6 +21,16 @@ int Tile::GetCurrentResource() const
 	return currentResources;
 }
 
+void Tile::SetState(States s)
+{
+	currentState = s;
+}
+
+Tile::States Tile::GetState() const
+{
+	return currentState;
+}
+
 void Tile::SetPosition(sf::Vector2f p)
 {
 	shape->setPosition(p);
@@ -189,3 +199,8 @@ bool Tile::IsMouseHover(sf::RenderWindow& window)
 	
 	return false;
 }
+
+//std::vector<Tile*> Tile::GetAdjacentTiles() const
+//{
+//	return adjacentTiles;
+//}
