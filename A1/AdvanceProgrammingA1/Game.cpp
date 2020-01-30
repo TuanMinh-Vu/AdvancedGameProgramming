@@ -44,9 +44,19 @@ void Game::Run()
 			ProcessEvent();
 			Update(FPS);
 		}
-		//message.setString(numOfScan);
 		Render();
 	}
+}
+
+void Game::Restart()
+{
+	map->GetTiles().clear();
+	map = new Map(16, 16, 6, 3);
+	numOfScan = 6;
+	numOfExtract = 3;
+	resources = 0;
+	isScanning = true;
+	mode = "SCAN";
 }
 
 void Game::ProcessEvent()
@@ -127,6 +137,9 @@ void Game::ProcessEvent()
 
 void Game::Update(sf::Time deltaTime)
 {
+	if (numOfExtract == 0) Restart();
+
+	
 	for (int i = 0; i < map->GetTiles().size(); i++)
 	{
 		map->GetTiles()[i]->Update();
@@ -159,7 +172,6 @@ void Game::KeyboardInput(sf::Keyboard::Key keyCode, bool isPressed)
 			mode = isScanning ? "SCAN" : "EXTRACT";
 			isScanning = !isScanning;
 		}
-		
 		break;
 
 	default:

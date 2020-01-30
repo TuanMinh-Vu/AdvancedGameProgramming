@@ -11,6 +11,7 @@ public:
 	Game(float width, float height, const std::string& title);
 	~Game();
 	void Run();
+	void Restart();
 
 private:
 	void ProcessEvent();
