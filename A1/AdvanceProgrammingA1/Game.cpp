@@ -23,6 +23,15 @@ Game::Game(float width, float height, const std::string& tile): mWindow(sf::Vide
 	message.setPosition(sf::Vector2f(1000, 500));
 	message.setString(mode + " MODE\n\n" + "Number Of Scan: " + std::to_string(numOfScan) + "\n" + "Number Of Extract: " + std::to_string(numOfExtract) + "\n" + "Resources: " + std::to_string(resources));
 
+
+	restartBtn = Button("Restart", sf::Vector2f(200.0f, 100.0f), 20, sf::Color::Green, sf::Color::Blue, sf::Color::Black);
+	restartBtn.SetFont(font);
+	restartBtn.SetPosition(sf::Vector2f(100000, 700)); // set the restart butto out of screen at the beginning
+
+	gameResult.setFont(font);
+	gameResult.setFillColor(sf::Color::Red);
+	gameResult.setCharacterSize(20);
+	gameResult.setPosition(sf::Vector2f(1000, 500));
 }
 
 Game::~Game()
@@ -57,6 +66,8 @@ void Game::Restart()
 	resources = 0;
 	isScanning = true;
 	mode = "SCAN";
+	gameOver = false;
+	restartBtn.SetPosition(sf::Vector2f(100000, 700));
 }
 
 void Game::ProcessEvent()
@@ -86,7 +97,7 @@ void Game::ProcessEvent()
 			{
 				for (int i = 0; i < map->GetTiles().size(); i++)
 				{
-					if (map->GetTiles()[i]->OnMouseClicked(mWindow))
+					if (map->GetTiles()[i]->IsMouseHover(mWindow))
 					{
 						numOfExtract--;
 						resources += map->GetTiles()[i]->GetCurrentResource();
@@ -98,7 +109,7 @@ void Game::ProcessEvent()
 
 			
 #pragma region Scan Mode
-			if (isScanning && numOfScan > 0)
+			if (isScanning && numOfScan > 0 && numOfExtract > 0)
 			{
 
 				for (int i = 0; i < map->GetTiles().size(); i++)
@@ -126,6 +137,13 @@ void Game::ProcessEvent()
 			}
 #pragma endregion
 
+#pragma region Restart Button
+			if (restartBtn.IsMouseHover(mWindow))
+			{
+				Restart();
+			}
+#pragma endregion
+
 			break;
 
 		default:
@@ -137,7 +155,12 @@ void Game::ProcessEvent()
 
 void Game::Update(sf::Time deltaTime)
 {
-	if (numOfExtract == 0) Restart();
+	if (numOfExtract == 0)
+	{
+		restartBtn.SetPosition(sf::Vector2f(1000, 700));
+		gameResult.setString("Game Over\n\n You achived " + std::to_string(resources) + " resources");
+		gameOver = true;
+	}
 
 	
 	for (int i = 0; i < map->GetTiles().size(); i++)
@@ -157,8 +180,18 @@ void Game::Render()
 		mWindow.draw(*tile->GetShape());
 	}
 
-	mWindow.draw(message);
-	switchingBtn.DrawTo(mWindow);
+	if (!gameOver)
+	{
+		mWindow.draw(message);
+		switchingBtn.DrawTo(mWindow);
+	}
+	else
+	{
+		mWindow.draw(gameResult);
+		restartBtn.DrawTo(mWindow);
+	}
+
+	
 	mWindow.display();
 }
 

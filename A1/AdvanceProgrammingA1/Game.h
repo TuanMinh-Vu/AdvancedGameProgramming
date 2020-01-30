@@ -25,9 +25,16 @@ private:
 	int numOfExtract = 3;
 	unsigned int resources = 0;
 	bool isScanning = true;
+	bool gameOver = false;
 	std::string mode;
 	sf::Font font;
 	Button switchingBtn;
 	sf::Text message;
+
+#pragma region Game Over Panel;
+	Button restartBtn;
+	sf::Text gameResult;
+#pragma endregion
+
 };
 
