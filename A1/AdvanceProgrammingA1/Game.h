@@ -16,7 +16,6 @@ private:
 	void Update(sf::Time deltaTime);
 	void Render();
 	void KeyboardInput(sf::Keyboard::Key keyCode, bool isPressed);
-
 	sf::RenderWindow mWindow;
 	Map* map;
 	const sf::Time FPS = sf::seconds(1.0f / 60.0f);

@@ -53,6 +53,12 @@ void Game::ProcessEvent()
 			KeyboardInput(event.key.code, false);
 			break;
 
+		case sf::Event::MouseButtonPressed:
+			for (int i = 0; i < map->GetTiles().size(); i++)
+			{
+				map->GetTiles()[i]->OnMouseClicked(mWindow);
+			}
+			break;
 		default:
 			break;
 		}
@@ -66,6 +72,7 @@ void Game::Update(sf::Time deltaTime)
 	{
 		map->GetTiles()[i]->Update();
 	}
+
 }
 
 void Game::Render()
@@ -76,7 +83,6 @@ void Game::Render()
 	{
 		mWindow.draw(*tile->GetShape());
 	}
-
 	mWindow.display();
 }
 

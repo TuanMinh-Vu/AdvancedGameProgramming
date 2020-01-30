@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile(States startState, int maxResource, sf::Vector2f s, float o) : isFacingUp(true), currentState(startState)
+Tile::Tile(States startState, int maxResource, sf::Vector2f s, float o) : isFacingUp(false), currentState(startState)
    , maximumResources(maxResource), size(s), outline(o)
 {
 	Initialize();
@@ -8,16 +8,8 @@ Tile::Tile(States startState, int maxResource, sf::Vector2f s, float o) : isFaci
 
 Tile::~Tile()
 {
-	/*for (auto t : adjacentTiles)
-	{
-		delete t;
-	}*/
-		
-   // adjacentTiles.clear();
-
 	delete shape;
 }
-
 
 sf::RectangleShape* Tile::GetShape() const
 {
@@ -160,7 +152,31 @@ void Tile::AddAdjacentTiles(Tile* t)
 	adjacentTiles.push_back(t);
 }
 
-void Tile::OnMouseClicked(sf::Vector2f mousePosition)
+void Tile::OnMouseClicked(sf::RenderWindow& window)
 {
+	if (IsMouseOver(window))
+	{
+		isFacingUp = true;
 
+		for (Tile*& tile : adjacentTiles)
+		{
+			tile->isFacingUp = true;
+		}
+	}
+}
+
+bool Tile::IsMouseOver(sf::RenderWindow& window)
+{
+	int mouseX = sf::Mouse::getPosition(window).x;
+	int mouseY = sf::Mouse::getPosition(window).y;
+
+	int btnPosX = shape->getPosition().x;
+	int btnPosY = shape->getPosition().y;
+
+	int btnxPosWidth = shape->getPosition().x + shape->getSize().x;
+	int btnyPosHeight = shape->getPosition().y + shape->getSize().y;
+
+	if (mouseX < btnxPosWidth && mouseX > btnPosX && mouseY < btnyPosHeight && mouseY > btnPosY) return true;
+	
+	return false;
 }

@@ -1,5 +1,23 @@
-﻿  Game.cpp
-C:\Users\Tuan Minh Vu\Desktop\AdvanceProgrammingA1\AdvanceProgrammingA1\Game.cpp(8,94): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-C:\Users\Tuan Minh Vu\Desktop\AdvanceProgrammingA1\AdvanceProgrammingA1\Game.cpp(8,87): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-C:\Users\Tuan Minh Vu\Desktop\AdvanceProgrammingA1\AdvanceProgrammingA1\Game.cpp(65,20): warning C4018: '<': signed/unsigned mismatch
-  AdvanceProgrammingA1.vcxproj -> C:\Users\Tuan Minh Vu\Desktop\AdvanceProgrammingA1\Debug\AdvanceProgrammingA1.exe
+﻿  Tile.cpp
+C:\Users\Tuan Minh Vu\Desktop\AdvancedGameProgramming\A1\AdvanceProgrammingA1\Tile.cpp(173,14): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Tuan Minh Vu\Desktop\AdvancedGameProgramming\A1\AdvanceProgrammingA1\Tile.cpp(174,14): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Tuan Minh Vu\Desktop\AdvancedGameProgramming\A1\AdvanceProgrammingA1\Tile.cpp(176,19): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Tuan Minh Vu\Desktop\AdvancedGameProgramming\A1\AdvanceProgrammingA1\Tile.cpp(177,20): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Tuan Minh Vu\Desktop\AdvancedGameProgramming\A1\AdvanceProgrammingA1\Tile.cpp(148): warning C4715: 'Tile::GetResourceAtState': not all control paths return a value
+  AdvanceProgrammingA1.vcxproj -> C:\Users\Tuan Minh Vu\Desktop\AdvancedGameProgramming\A1\Debug\AdvanceProgrammingA1.exe
