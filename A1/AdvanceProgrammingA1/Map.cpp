@@ -10,6 +10,7 @@ Map::Map()
 	Initialize();
 	MakeFullMap();
 	MakeResourceTiles();
+	FindAdjecentTiles();
 }
 
 Map::Map(int row, int column, int resources, int ring) : row(row), column(column), numOfResourceTiles(resources), numOfRingPerResouceTiles(ring)
@@ -17,6 +18,7 @@ Map::Map(int row, int column, int resources, int ring) : row(row), column(column
 	Initialize();
 	MakeFullMap();
 	MakeResourceTiles();
+	FindAdjecentTiles();
 }
 
 Map::~Map()
@@ -96,17 +98,41 @@ void Map::MakeTilesRings(Tile* centerTile, sf::Vector2i center)
 					// is the current tile empty or has the resource than the new one?
 					if (amountResourceGrid[nextRow][nextColumn] == NULL || amountResourceGrid[nextRow][nextColumn] < maximumResourcesPerTile / (2 * i))
 					{
+						// optimize this later
 						Tile* tile = new Tile(static_cast<Tile::States>(Tile::States::Maximum + i), maximumResourcesPerTile, sf::Vector2f(50.0f, 50.0f), 2.0f);
 						tile->SetPosition(sf::Vector2f(tile->GetSize().x * nextRow, tile->GetSize().y * nextColumn));
 						amountResourceGrid[nextRow][nextColumn] = tile->GetCurrentResource();
-						centerTile->AddAdjacentTiles(tile);
 						tiles.push_back(tile);
 					}
+
 				}
 				
 			}
 		}
 	}
+}
+
+void Map::FindAdjecentTiles()
+{
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		for (int j = 0; j < tiles.size(); j++)
+		{
+			// optimize this later
+			if (   (tiles[j]->GetPosition().x == tiles[i]->GetPosition().x && tiles[j]->GetPosition().y == tiles[i]->GetPosition().y + tiles[i]->GetSize().y)
+				|| (tiles[j]->GetPosition().x == tiles[i]->GetPosition().x && tiles[j]->GetPosition().y == tiles[i]->GetPosition().y - tiles[i]->GetSize().y)
+				|| (tiles[j]->GetPosition().y == tiles[i]->GetPosition().y && tiles[j]->GetPosition().x == tiles[i]->GetPosition().x + tiles[i]->GetSize().x)
+				|| (tiles[j]->GetPosition().y == tiles[i]->GetPosition().y && tiles[j]->GetPosition().x == tiles[i]->GetPosition().x - tiles[i]->GetSize().x)
+				|| (tiles[j]->GetPosition().y == tiles[i]->GetPosition().y + tiles[i]->GetSize().y && tiles[j]->GetPosition().x == tiles[i]->GetPosition().x + tiles[i]->GetSize().x)
+				|| (tiles[j]->GetPosition().y == tiles[i]->GetPosition().y + tiles[i]->GetSize().y && tiles[j]->GetPosition().x == tiles[i]->GetPosition().x - tiles[i]->GetSize().x)
+				|| (tiles[j]->GetPosition().y == tiles[i]->GetPosition().y - tiles[i]->GetSize().y && tiles[j]->GetPosition().x == tiles[i]->GetPosition().x + tiles[i]->GetSize().x)
+				|| (tiles[j]->GetPosition().y == tiles[i]->GetPosition().y - tiles[i]->GetSize().y && tiles[j]->GetPosition().x == tiles[i]->GetPosition().x - tiles[i]->GetSize().x))
+			{
+				tiles[i]->AddAdjacentTiles(tiles[j]);
+			}
+		}
+	}
+
 }
 
 std::vector<Tile*> Map::GetTiles()

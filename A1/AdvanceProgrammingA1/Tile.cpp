@@ -26,6 +26,11 @@ void Tile::SetPosition(sf::Vector2f p)
 	shape->setPosition(p);
 }
 
+sf::Vector2f Tile::GetPosition() const
+{
+	return shape->getPosition();
+}
+
 sf::Vector2f Tile::GetSize() const
 {
 	return shape->getSize();

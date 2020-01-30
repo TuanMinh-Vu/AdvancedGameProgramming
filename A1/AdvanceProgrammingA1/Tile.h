@@ -23,6 +23,7 @@ public:
 #pragma region Public Methods
 	int GetCurrentResource() const;
 	void SetPosition(sf::Vector2f p);
+	sf::Vector2f GetPosition() const;
 	void Update();
 	int GetResourceAtState(States s) const;
 	void AddAdjacentTiles(Tile* t);

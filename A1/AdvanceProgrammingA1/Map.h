@@ -29,6 +29,7 @@ private:
 	void MakeFullMap();
 	void MakeResourceTiles();
 	void MakeTilesRings(Tile* centerTile, sf::Vector2i center);
+	void FindAdjecentTiles();
 #pragma endregion
 
 };
