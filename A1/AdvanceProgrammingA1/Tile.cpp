@@ -200,7 +200,17 @@ bool Tile::IsMouseHover(sf::RenderWindow& window)
 	return false;
 }
 
-//std::vector<Tile*> Tile::GetAdjacentTiles() const
-//{
-//	return adjacentTiles;
-//}
+void Tile::Extract()
+{
+	for (Tile*& tile : adjacentTiles)
+	{
+		if (tile->currentState != Minimum) tile->currentState = static_cast<Tile::States>(tile->currentState + 1);
+	}
+	
+	if(currentState != Minimum) currentState = Tile::States::Minimum;
+}
+
+std::vector<Tile*> Tile::GetAdjacentTiles() const
+{
+	return adjacentTiles;
+}

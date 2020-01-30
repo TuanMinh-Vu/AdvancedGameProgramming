@@ -31,7 +31,8 @@ public:
 	void AddAdjacentTiles(Tile* t);
 	bool OnMouseClicked(sf::RenderWindow& window);
 	bool IsMouseHover(sf::RenderWindow& window);
-	//std::vector<Tile*> GetAdjacentTiles() const;
+	void Extract();
+	std::vector<Tile*> GetAdjacentTiles() const;
 #pragma endregion
 
 	

@@ -145,18 +145,18 @@ void Map::RemoveOverlapTiles()
 	{
 		for (int j = 0; j < tiles.size(); j++)
 		{
-			if (tiles[i]->GetPosition() == tiles[j]->GetPosition() && i != j)
+			if (i < tiles.size() && j < tiles.size())
 			{
-				if (tiles[i]->GetCurrentResource() > tiles[j]->GetCurrentResource()) tiles.erase(tiles.begin() + j);
-				else
+				if (tiles[i]->GetPosition() == tiles[j]->GetPosition() && i != j)
 				{
-					tiles.erase(tiles.begin() + i);
-					//break;
-				};
+					if (tiles[i]->GetCurrentResource() > tiles[j]->GetCurrentResource()) tiles.erase(tiles.begin() + j);
+					else tiles.erase(tiles.begin() + i);
+				}
 			}
 
 		}
 	}
+
 }
 
 std::vector<Tile*> Map::GetTiles()

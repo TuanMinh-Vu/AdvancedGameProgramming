@@ -80,12 +80,7 @@ void Game::ProcessEvent()
 					{
 						numOfExtract--;
 						resources += map->GetTiles()[i]->GetCurrentResource();
-						map->GetTiles()[i]->SetState(Tile::States::Minimum);
-						/*for (Tile* t : map->GetTiles()[i]->GetAdjacentTiles())
-						{
-							if(t->GetState() == Tile::States::Minimum) 
-							t->SetState(static_cast<Tile::States>(t->GetState() + 1));
-						}*/
+						map->GetTiles()[i]->Extract();
 					}
 				}
 			}
